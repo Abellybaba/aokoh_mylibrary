@@ -1,13 +1,47 @@
+//Author : Abel Okoh
+//Seneca College
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ToastContainer } from 'react-toastify';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+//import { BrowserRouter } from 'react-router-dom';
+//import Home from '.components/Home';
+import Addbook from './routes/Addbook';
+import Editbook from './routes/Editbook';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Navbar from './components/Navbar';
+import { createStore } from 'redux';
+import bookReducer from './redux/reducers/bookReducer';
+//import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from 'react-redux';
+import Homepage from './routes/Homepage';
+
+//Importation for redux and reducers
+const store = createStore(bookReducer)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+  
+    <BrowserRouter>
+    <ToastContainer />
+    <Navbar />
+     <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/addbook" element={<Addbook />} />
+      <Route path="/editbook/:id" element={<Editbook />} />
+    </Routes>
+    </BrowserRouter>
+    
+     </Provider>,
   document.getElementById('root')
 );
 
